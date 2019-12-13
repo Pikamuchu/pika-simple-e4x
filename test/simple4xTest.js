@@ -7,6 +7,11 @@ var XML = require('../lib');
 describe('Simple E4X tests', function() {
   describe('Simple examples', function() {
     it('Parse person xml', function() {
+      var languageArrayXml =
+        '<languages>\n' +
+        '  <language>JavaScript</language>\n' +
+        '  <language>Python</language>\n' +
+        '</languages>';
       var personXml =
         '<person>\n' +
         '  <name>Bob Smith</name>\n' +
@@ -25,10 +30,28 @@ describe('Simple E4X tests', function() {
       assert.equal(person['name'], 'Bob Smith');
       assert.equal(person.likes.browser, 'Firefox');
       assert.equal(person['likes'].browser, 'Firefox');
+      assert.equal(person.toString(), personXml);
       assert.equal(person.toXMLString(), personXml);
+      assert.equal(person.likes.language.toXMLString(), languageArrayXml);
+      assert.equal(person.likes.language.toString(), languageArrayXml);
+      assert.equal(person.likes.language.valueOf(), languageArrayXml);
     });
 
     it('Parse instructions xml', function() {
+      var stepArrayXml =
+      '<steps>\n' +
+      '  <step>\n' +
+      '    <title status="draft">Step 1</title>\n' +
+      '    <para>Think !</para>\n' +
+      '  </step>\n' +
+      '  <step id="s2">\n' +
+      '    <title>Step 2</title>\n' +
+      '  </step>\n' +
+      '  <step id="s3">\n' +
+      '    <title>Step 3</title>\n' +
+      '    <para>That was easy !</para>\n' +
+      '  </step>\n' +
+      '</steps>';
       var stepsXml =
         '<steps>\n' +
         '  <title>List of steps</title>\n' +
@@ -62,7 +85,10 @@ describe('Simple E4X tests', function() {
       assert.equal(instructions.info.para, '\n      See \n    ');
       assert.equal(instructions.steps.step.length(), 3);
       assert.equal(instructions.steps.step[0].title.attribute('status'), 'draft');
+      assert.equal(instructions.steps.toString(), stepsXml);
       assert.equal(instructions.steps.toXMLString(), stepsXml);
+      assert.equal(instructions.steps.step.toString(), stepArrayXml);
+      assert.equal(instructions.steps.step.valueOf(), stepArrayXml);
     });
   });
 });
