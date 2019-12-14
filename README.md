@@ -1,7 +1,7 @@
 # pika-simple-e4x
 
 [![Version](https://img.shields.io/npm/v/simple4x.svg)](https://npmjs.org/package/simple4x)
-[![Build Status](https://img.shields.io/travis/pikamachu/pika-simple-e4x/master.svg)](https://travis-ci.org/pikamachu/pika-simple-e4x)
+[![Build Status](https://img.shields.io/travis/pikamachu/pika-simple-e4x/master.svg)](https://travis-ci.com/pikamachu/pika-simple-e4x)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7a5d465f487e4f55a8e50e8201cc69b1)](https://www.codacy.com/project/antonio.marin.jimenez/pika-simple-e4x/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pikamachu/pika-simple-e4x&amp;utm_campaign=Badge_Grade_Dashboard)
 [![codecov](https://codecov.io/gh/pikamachu/pika-simple-e4x/branch/master/graph/badge.svg)](https://codecov.io/gh/pikamachu/pika-simple-e4x)
 
