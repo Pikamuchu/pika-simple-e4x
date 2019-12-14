@@ -6,6 +6,12 @@ var XML = require('../lib');
 
 describe('Simple E4X tests', function() {
   describe('Simple examples', function() {
+    it('Parse div xml anonymous call', function() {
+      var div = require('../lib').call({}, '<div>test</div>');
+      assert.isDefined(div);
+      assert.equal(div, 'test');
+    });
+
     it('Parse person xml', function() {
       var languageArrayXml =
         '<languages>\n' +
