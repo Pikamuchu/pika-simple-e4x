@@ -96,27 +96,28 @@ describe('Simple E4X tests', function() {
       assert.equal(instructions.steps.step.toString(), stepArrayXml);
       assert.equal(instructions.steps.step.valueOf(), stepArrayXml);
     });
+  });
 
-    describe('XML manipulation tests', function() {
-      it('Using appendChild', function() {
-        var element1 = new XML(
-          '<foo>\n' +
-          '  <bar/>\n' +
-          '</foo>'
-        );
-        var element2 = new XML('<baz/>');
-        element1.bar.appendChild(element2);
-        element1["bar"].appendChild('<quux/>');
-        assert.equal(
-          element1.toXMLString(),
-          '<foo>\n' +
-          '  <bar>\n' +
-          '    <baz/>\n' +
-          '    <quux/>\n' +
-          '  </bar>\n' +
-          '</foo>'
-        );
-      });
+  describe('XML manipulation tests', function() {
+    it('Using appendChild', function() {
+      var element1 = new XML(
+        '<foo>\n' +
+        '  <bar/>\n' +
+        '</foo>'
+      );
+      var element2 = new XML('<baz/>');
+      element1.bar.appendChild(element2);
+      element1["bar"].appendChild('<quux/>');
+      assert.equal(
+        element1.toXMLString(),
+        '<foo>\n' +
+        '  <bar>\n' +
+        '    \n' +
+        '    <baz/>\n' +
+        '    <quux/>\n' +
+        '  </bar>\n' +
+        '</foo>'
+      );
     });
   });
 });
