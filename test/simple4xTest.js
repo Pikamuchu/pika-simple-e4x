@@ -120,4 +120,21 @@ describe('Simple E4X tests', function() {
       );
     });
   });
+
+  describe('Dom parse tests', function() {
+    it('Parse simple html', function() {
+      var htmlString =
+        '<div class="grid">\n' +
+        '  <header>header</header>\n' +
+
+        '  <article>\n' +
+        '    greeting\n' +
+        '  </article>\n' +
+
+        '  <footer>footer</footer>\n' +
+        '</div>';
+      var html = new XML(htmlString);
+      assert.equal(html.toString(), htmlString);
+    });
+  });
 });
