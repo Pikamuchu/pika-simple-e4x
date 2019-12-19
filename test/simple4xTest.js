@@ -7,9 +7,10 @@ var XML = require('../lib');
 describe('Simple E4X tests', function() {
   describe('Parse xml tests', function() {
     it('Parse div xml anonymous call', function() {
-      var div = require('../lib').call({}, '<div>test</div>');
+      var testDiv = '<div>test</div>';
+      var div = require('../lib').call({}, testDiv);
       assert.isDefined(div);
-      assert.equal(div, 'test');
+      assert.equal(div.toString(), testDiv);
     });
 
     it('Parse person xml', function() {
