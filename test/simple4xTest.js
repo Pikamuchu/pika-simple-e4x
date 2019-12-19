@@ -5,11 +5,12 @@ var assert = require('chai').assert;
 var XML = require('../lib');
 
 describe('Simple E4X tests', function() {
-  describe('Simple examples', function() {
+  describe('Parse xml tests', function() {
     it('Parse div xml anonymous call', function() {
-      var div = require('../lib').call({}, '<div>test</div>');
+      var testDiv = '<div>test</div>';
+      var div = require('../lib').call({}, testDiv);
       assert.isDefined(div);
-      assert.equal(div, 'test');
+      assert.equal(div.toString(), testDiv);
     });
 
     it('Parse person xml', function() {
@@ -95,6 +96,46 @@ describe('Simple E4X tests', function() {
       assert.equal(instructions.steps.toXMLString(), stepsXml);
       assert.equal(instructions.steps.step.toString(), stepArrayXml);
       assert.equal(instructions.steps.step.valueOf(), stepArrayXml);
+    });
+  });
+
+  describe('XML manipulation tests', function() {
+    it('Using appendChild', function() {
+      var element1 = new XML(
+        '<foo>\n' +
+        '  <bar/>\n' +
+        '</foo>'
+      );
+      var element2 = new XML('<baz/>');
+      element1.bar.appendChild(element2);
+      element1["bar"].appendChild('<quux/>');
+      assert.equal(
+        element1.toXMLString(),
+        '<foo>\n' +
+        '  <bar>\n' +
+        '    \n' +
+        '    <baz/>\n' +
+        '    <quux/>\n' +
+        '  </bar>\n' +
+        '</foo>'
+      );
+    });
+  });
+
+  describe('Dom parse tests', function() {
+    it('Parse simple html', function() {
+      var htmlString =
+        '<div class="grid">\n' +
+        '  <header>header</header>\n' +
+
+        '  <article>\n' +
+        '    greeting\n' +
+        '  </article>\n' +
+
+        '  <footer>footer</footer>\n' +
+        '</div>';
+      var html = new XML(htmlString);
+      assert.equal(html.toString(), htmlString);
     });
   });
 });
