@@ -5,7 +5,7 @@ var assert = require('chai').assert;
 var XML = require('../lib');
 
 describe('Simple E4X tests', function() {
-  describe('Parse xml tests', function() {
+  describe('Xml parse tests', function() {
     it('Parse div xml anonymous call', function() {
       var testDiv = '<div>test</div>';
       var div = require('../lib').call({}, testDiv);
@@ -35,13 +35,16 @@ describe('Simple E4X tests', function() {
       assert.isDefined(person);
       assert.equal(person.name, 'Bob Smith');
       assert.equal(person['name'], 'Bob Smith');
+      assert.equal(person[0].name, 'Bob Smith');
+      assert.equal(person.likes[0].os, 'Linux');
       assert.equal(person.likes.browser, 'Firefox');
       assert.equal(person['likes'].browser, 'Firefox');
       assert.equal(person.toString(), personXml);
       assert.equal(person.toXMLString(), personXml);
+      assert.equal(person[0].toXMLString(), personXml);
+      assert.equal(typeof person.valueOf(), 'object');
       assert.equal(person.likes.language.toXMLString(), languageArrayXml);
       assert.equal(person.likes.language.toString(), languageArrayXml);
-      assert.equal(person.likes.language.valueOf(), languageArrayXml);
     });
 
     it('Parse instructions xml', function() {
@@ -95,7 +98,7 @@ describe('Simple E4X tests', function() {
       assert.equal(instructions.steps.toString(), stepsXml);
       assert.equal(instructions.steps.toXMLString(), stepsXml);
       assert.equal(instructions.steps.step.toString(), stepArrayXml);
-      assert.equal(instructions.steps.step.valueOf(), stepArrayXml);
+      assert.equal(typeof instructions.steps.step.valueOf(), 'object');
     });
   });
 
@@ -120,9 +123,41 @@ describe('Simple E4X tests', function() {
         '</foo>'
       );
     });
+
+    it('Using appendChild', function() {
+      var sales = new XML(
+        '<sales vendor="John">\n' +
+        '  <item type="peas" price="4" quantity="6"/>\n' +
+        '  <item type="carrot" price="3" quantity="10"/>\n' +
+        '  <item type="chips" price="5" quantity="3"/>\n' +
+        '</sales>'
+      );
+
+      sales.item.appendChild('<item type="oranges" price="4"/>');
+      sales.item[3].__set('@quantity', 4);
+
+      assert.equal(sales.__get('@vendor'), 'John');
+      assert.equal(sales.item.__get('@type'), 'peascarrotchipsoranges');
+      // TODO: implement xml queries
+      //sales.item.__set('(@type == "oranges").@quantity', 4);
+      //assert.equal(sales.item.__get('(@type == "carrot").@quantity'), '10');
+      //sales.get('..@price').forEach(function (price) {
+      //  assert.isNumber(price);
+      //});
+      assert.equal(sales.name(), 'sales');
+      assert.equal(
+        sales.toXMLString(),
+        '<sales vendor="John">\n' +
+        '  <item type="peas" price="4" quantity="6"/>\n' +
+        '  <item type="carrot" price="3" quantity="10"/>\n' +
+        '  <item type="chips" price="5" quantity="3"/>\n' +
+        '  <item type="oranges" price="4" quantity="4"/>\n' +
+        '</sales>'
+      );
+    });
   });
 
-  describe('Dom parse tests', function() {
+  describe('Html parse tests', function() {
     it('Parse simple html', function() {
       var htmlString =
         '<div class="grid">\n' +
@@ -136,6 +171,14 @@ describe('Simple E4X tests', function() {
         '</div>';
       var html = new XML(htmlString);
       assert.equal(html.toString(), htmlString);
+    });
+  });
+
+  describe('Bugfix tests', function() {
+    it('Array templating fix', function() {
+      var xmlString = '<sales vendor="John"><item type="peas" price="4" quantity="6"/>,<item type="carrot" price="4" quantity="6"/>,<item type="chips" price="4" quantity="6"/></sales>';
+      var xml = new XML(xmlString);
+      assert.equal(xml.item.length(), 3);
     });
   });
 });
