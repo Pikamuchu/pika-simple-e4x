@@ -134,13 +134,13 @@ describe('Simple E4X tests', function() {
       );
 
       sales.item.appendChild('<item type="oranges" price="4"/>');
-      sales.item[3].__set('@quantity', 4);
+      sales.item[3].set('@quantity', 4);
 
-      assert.equal(sales.__get('@vendor'), 'John');
-      assert.equal(sales.item.__get('@type'), 'peascarrotchipsoranges');
+      assert.equal(sales.get('@vendor'), 'John');
+      assert.equal(sales.item.get('@type'), 'peascarrotchipsoranges');
       // TODO: implement xml queries
-      //sales.item.__set('(@type == "oranges").@quantity', 4);
-      //assert.equal(sales.item.__get('(@type == "carrot").@quantity'), '10');
+      //sales.item.set('(@type == "oranges").@quantity', 4);
+      //assert.equal(sales.item.get('(@type == "carrot").@quantity'), '10');
       //sales.get('..@price').forEach(function (price) {
       //  assert.isNumber(price);
       //});
