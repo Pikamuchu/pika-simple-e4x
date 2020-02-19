@@ -1,6 +1,6 @@
 {
   "name": "simple4x",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Simple e4x xml processor.",
   "main": "./lib/index.js",
   "scripts": {
