@@ -1,6 +1,6 @@
 {
   "name": "simple4x",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Simple e4x xml processor.",
   "main": "./lib/index.js",
   "scripts": {
@@ -21,17 +21,17 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-subset": "^1.5.0",
-    "codecov": "^3.5.0",
+    "codecov": "^3.6.5",
     "eslint": "5.9.0",
     "eslint-config-prettier": "^3.1.0",
-    "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-mocha": "^5.3.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "mocha": "^5.2.0",
     "nyc": "^14.1.1",
     "prettier": "^1.13.0",
     "sinon": "^7.1.1"
   },
   "dependencies": {
-    "xml2js": "^0.4.22"
+    "xml2js": "^0.4.23"
   }
 }
